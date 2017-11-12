@@ -1,8 +1,7 @@
 // @flow
-
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import Version from './components/Version';
+import Version from 'components/Version';
 import './App.css';
 
 class App extends Component<Object> {

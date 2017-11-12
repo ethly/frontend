@@ -1,5 +1,5 @@
 // @flow
 
-export function getVersion(): number {
-  return 1.1;
+export function getVersion(): Promise<number> {
+  return new Promise(resolve => setTimeout(resolve, 1500, 1.1));
 }
