@@ -2,17 +2,17 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Version from 'components/Version';
-import './App.css';
+import styles from './App.css';
 
 class App extends Component<Object> {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div className={styles.App}>
+        <header className={styles["App-header"]}>
+          <img src={logo} className={styles["App-logo"]} alt="logo" />
+          <h1 className={styles["App-title"]}>Welcome to React</h1>
         </header>
-        <Version color="blue"/>
+        <Version/>
       </div>
     );
   }

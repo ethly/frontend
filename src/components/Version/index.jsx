@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import update from 'immutability-helper';
 import * as Api from 'models/ApiModel';
 
-import './styles.css';
+import styles from './styles.css';
 
 type Props = {
-  color: string,
+  color: ?string,
 }
 
 type State = {
@@ -23,6 +23,10 @@ export default class Version extends Component<Props, State> {
         },
       }));
   };
+
+  static defaultProps = {
+    color: null,
+  }
 
   constructor(props: Props) {
     super(props);
@@ -48,7 +52,7 @@ export default class Version extends Component<Props, State> {
       return <div>Loading...</div>;
     }
     return (
-      <div onClick={this.onClick} className="version" style={{
+      <div onClick={this.onClick} className={styles.version} style={{
           color: this.props.color,
         }}>
         {this.state.version}
