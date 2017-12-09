@@ -1,14 +1,5 @@
-.linkList {
-}
-
-.linkList {
-  list-style-type: none;
-}
-
-.itemLabel {
-
-}
-
-.itemUrl {
-  color: blue;
+.container {
+  width: 80%;
+  text-align: left;
+  margin: auto;
 }
