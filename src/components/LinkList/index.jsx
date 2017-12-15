@@ -1,55 +1,34 @@
 // @flow
 
-import React, { Component } from 'react';
-import update from 'immutability-helper';
+import React from 'react'
+import {List, ListItem} from 'material-ui/List'
 
-import type { Link } from 'common/Link';
-import * as Api from 'models/ApiModel';
+import ComponentWithData from 'components/ComponentWithData'
+import type { Link } from 'common/Link'
+import * as Api from 'models/ApiModel'
+import styles from './styles.css'
 
-import styles from './styles.css';
+import LinkComponent from './Link'
 
 type Props = {
 }
 
-type State = {
-  loading: boolean,
-  linkList: Array<Link>
-}
-
-export default class Version extends Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      loading: true,
-      linkList: []
-    }
+export default class Version extends ComponentWithData<Props, Array<Link>, {}> {
+  loadData(): Promise<Array<Link>> {
+    return Api.getLinks()
   }
 
-  componentWillMount() {
-    Api.getLinks().then(listItems => this.setState(state => update(state, {
-      loading: {
-        $set: false,
-      },
-      linkList: {
-        $set: listItems,
-      }
-    })));
-  }
-
-  render() {
-    if (this.state.loading) {
-      return <div>Loading...</div>;
-    }
-    const listItems = this.state.linkList.map((link: Link, key: number) =>
-      <li key={key}>
-        <span className={styles.itemLabel}>{link.label}</span>
-        <span className={styles.itemUrl}>{link.url}</span>
-     </li>
-    );
+  renderLoaded(links: Array<Link>) {
+    const listItems = links.map((link: Link, key: number) =>
+      <ListItem key={key}>
+        <LinkComponent {... link} />
+      </ListItem>
+    )
     return (
-      <div className={styles.version}>
-        <ul className={styles.linkList}>{listItems}</ul>
+      <div className={styles.container}>
+        <List>
+          {listItems}
+        </List>
       </div>
     );
   }
