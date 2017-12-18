@@ -4,22 +4,24 @@ import React from 'react'
 import {List, ListItem} from 'material-ui/List'
 
 import ComponentWithData from 'components/ComponentWithData'
-import type { Link } from 'common/Link'
-import * as Api from 'models/ApiModel'
+import type { LinkDescription } from 'api/entities'
+import Api from 'api'
+
 import styles from './styles.css'
 
 import LinkComponent from './Link'
 
-type Props = {
-}
-
-export default class Version extends ComponentWithData<Props, Array<Link>, {}> {
-  loadData(): Promise<Array<Link>> {
-    return Api.getLinks()
+export default class Version extends ComponentWithData<{}, {}, Array<LinkDescription>, {}> {
+  initCustomState(): {} {
+    return {}
   }
 
-  renderLoaded(links: Array<Link>) {
-    const listItems = links.map((link: Link, key: number) =>
+  loadData(): Promise<Array<LinkDescription>> {
+    return Api.getAllLinks()
+  }
+
+  renderLoaded(links: Array<LinkDescription>) {
+    const listItems = links.map((link: LinkDescription, key: number) =>
       <ListItem key={key}>
         <LinkComponent {... link} />
       </ListItem>

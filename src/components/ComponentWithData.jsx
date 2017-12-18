@@ -9,8 +9,9 @@ import CircularProgress from 'material-ui/CircularProgress'
 import Logger from 'utils/Logger'
 
 type StateEnum = 'LOADING' | 'LOADED' | 'ERROR'
-type InternalState<T, E> = {
+type InternalState<State, T, E> = {
   state: ?StateEnum,
+  customState: State,
   data: ?T,
   error: ?E,
 }
@@ -18,22 +19,39 @@ type InternalState<T, E> = {
 // Component that can be used for rendering data from API
 // It can be in 3 states - loading, loaded, error
 // Current state is determined by the state of data loading
-export default class ComponentWithData<Props, T, E>
-  extends Component<Props, InternalState<T, E>> {
-  initState(): InternalState<T, E> {
+export default class ComponentWithData<Props, State, T, E>
+  extends Component<Props, InternalState<State, T, E>> {
+  initState(): InternalState<State, T, E> {
     return {
       state: null,
+      customState: this.initCustomState(),
       data: null,
       error: null,
     }
   }
 
+  initCustomState(): State {
+    throw new Error("initCustom is not implemented")
+  }
+
+  getCustomState(): State {
+    return this.state.customState
+  }
+
+  setCustomState(change: State => State) {
+    this.setState(state => update(state, {
+      customState: {
+        $set: change(state.customState),
+      },
+    }))
+  }
+
   _constructState(
-    oldState: InternalState<T, E>,
+    oldState: InternalState<State, T, E>,
     loadingState: StateEnum,
     data: ?T,
     error: ?E
-  ): InternalState<T, E> {
+  ): InternalState<State, T, E> {
     return update(oldState, {
       state: {
         $set: loadingState,

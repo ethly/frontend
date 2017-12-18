@@ -4,14 +4,11 @@ import React, {
   Component,
 } from 'react'
 
+import { type LinkDescription } from 'api/entities'
+
 import styles from './styles.css'
 
-type Props = {
-  label: string,
-  url: string,
-}
-
-export default class Link extends Component<Props> {
+export default class Link extends Component<LinkDescription> {
   render() {
     return (
       <div className={styles.container}>

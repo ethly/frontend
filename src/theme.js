@@ -1,7 +1,7 @@
 import {
   grey400,
   grey600,
-  grey900,
+  blueGrey500,
 } from 'material-ui/styles/colors'
 
 export default {
@@ -10,6 +10,6 @@ export default {
     primary1Color: grey400,
     primary2Color: grey400,
     primary3Color: grey600,
-    accent1Color: grey900,
+    accent1Color: blueGrey500,
   },
 }

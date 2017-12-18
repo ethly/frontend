@@ -9,6 +9,7 @@ import Paper from 'material-ui/Paper'
 import Header from 'components/Header'
 import SearchBox from 'components/SearchBox'
 import SortBox from 'components/SortBox'
+import AddLinkGroup from 'components/AddLinkGroup'
 
 export default class Page extends Component<{
   children?: Node,
@@ -24,12 +25,15 @@ export default class Page extends Component<{
 
   render() {
     return (
-      <Paper style={Page.PAGE_STYLE}>
-        <Header />
-        <SearchBox />
-        <SortBox />
-        {this.props.children}
-      </Paper>
+      <div>
+        <Paper style={Page.PAGE_STYLE}>
+          <Header />
+          <SearchBox />
+          <SortBox />
+          {this.props.children}
+        </Paper>
+        <AddLinkGroup />
+      </div>
     )
   }
 }
